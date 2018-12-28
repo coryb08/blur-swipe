@@ -6,22 +6,19 @@ import {
   TextInput,
   Image,
   Button,
-  TouchableOpacity,
-  KeyboardAvoidingView
+  TouchableOpacity
 } from "react-native"
 import { connect } from "react-redux"
-
 import * as actions from "../../store/actions"
 class EmailSignUp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      emailText: ""
+      emailText: "",
+      passwordText: "",
+      passwordConfirmText: ""
     }
   }
-  // shouldComponentUpdate = () => {
-  //   return false
-  // }
   render() {
     return [
       <Text style={styles.header}>Email sign up</Text>,
@@ -32,22 +29,42 @@ class EmailSignUp extends React.Component {
           style={styles.input}
           onChangeText={emailText => this.setState({ emailText })}
           value={this.state.emailText}
-          // onChangeText={emailText => {
-          //   this.props.signUpEmail({ signUpEmail: emailText })
-          // }}
-          // value={this.props.email}
+          returnKeyType="next"
+          blurOnSubmit={false}
+          onSubmitEditing={() => {
+            this.secondTextInput.focus()
+          }}
         />
         <TextInput
           placeholder="password"
           selectionColor="#dddcd5"
           style={styles.input}
           secureTextEntry={true}
+          blurOnSubmit={false}
+          ref={input => {
+            this.secondTextInput = input
+          }}
+          onChangeText={passwordText => this.setState({ passwordText })}
+          value={this.state.passwordText}
+          onSubmitEditing={() => {
+            this.thirdTextInput.focus()
+          }}
+          returnKeyType="next"
         />
         <TextInput
           placeholder="confirm password"
           selectionColor="#dddcd5"
           style={styles.input}
           secureTextEntry={true}
+          onChangeText={passwordConfirmText =>
+            this.setState({ passwordConfirmText })
+          }
+          value={this.state.passwordConfirmText}
+          ref={input => {
+            this.thirdTextInput = input
+          }}
+          onSubmitEditing={() => this.props.EmailSignUpRunner(this.state)}
+          returnKeyType="go"
         />
       </View>,
       <TouchableOpacity
@@ -61,11 +78,9 @@ class EmailSignUp extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    email: state.signUp.signUpEmail
-  }
-}
+const mapStateToProps = state => ({
+  state
+})
 
 export default connect(
   mapStateToProps,

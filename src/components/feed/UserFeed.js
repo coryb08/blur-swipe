@@ -30,19 +30,6 @@ class UserFeed extends React.Component {
     this.setState({ jsonResponse: this.props.users.reverse() })
   }
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "100%",
-          backgroundColor: "darkgray",
-          marginTop: 5,
-          marginBottom: 5
-        }}
-      />
-    )
-  }
 
   render() {
     const styles = StyleSheet.create({
@@ -52,11 +39,17 @@ class UserFeed extends React.Component {
         width: "100%",
         alignItems: "center"
       },
+      headerView: {
+        borderBottomWidth: 1,
+        borderBottomColor: "gray",
+        width: "100%"
+      },
       header: {
         marginTop: 10,
         fontSize: 40,
         fontFamily: "AmaticSCRegular",
-        color: "#3b3a30"
+        color: "#3b3a30",
+        textAlign: "center"
       },
       subheader: {
         marginTop: 5,
@@ -77,8 +70,8 @@ class UserFeed extends React.Component {
         alignItems: "center",
         height: 150,
         justifyContent: "center",
-        marginTop: "1%",
-        marginBottom: "1%",
+
+        marginBottom: "2%",
         backgroundColor: "white",
         borderTopWidth: 1,
         borderTopColor: "lightgray",
@@ -109,13 +102,16 @@ class UserFeed extends React.Component {
         flexWrap: "wrap"
       },
       flatList: {
-        width: "100%"
+        width: "100%",
+
       }
     })
 
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>User Feed</Text>
+        <View style={styles.headerView}>
+          <Text style={styles.header}>User Feed</Text>
+        </View>
         <FlatList
           style={styles.flatList}
           data={this.state.jsonResponse}

@@ -1,10 +1,12 @@
 import React from "react"
 import {
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
   Text,
-  View
+  View,
+  ScrollView,
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native"
 import { Actions } from "react-native-router-flux"
 
@@ -44,7 +46,10 @@ export default function HocWithoutNav(WrappedComponent) {
   return class extends React.Component {
     render() {
       return (
-        <View key={Math.floor(Math.random() * 100)} style={styles.container}>
+        <View
+          style={styles.container}
+          onPress={Keyboard.dismiss}
+          accessible={false}>
           {!this.props.hideBackImage ? (
             <TouchableOpacity
               style={styles.backArrowContainer}
