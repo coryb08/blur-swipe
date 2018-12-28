@@ -44,7 +44,7 @@ export default function HocWithoutNav(WrappedComponent) {
   return class extends React.Component {
     render() {
       return (
-        <View style={styles.container}>
+        <View key={Math.floor(Math.random() * 100)} style={styles.container}>
           {!this.props.hideBackImage ? (
             <TouchableOpacity
               style={styles.backArrowContainer}
@@ -52,7 +52,7 @@ export default function HocWithoutNav(WrappedComponent) {
               <Text style={styles.backArrow}>{" <- "}</Text>
             </TouchableOpacity>
           ) : null}
-          <WrappedComponent key="wrappedComponent" {...this.props} />
+          <WrappedComponent key="wrappedComponent2" {...this.props} />
         </View>
       )
     }

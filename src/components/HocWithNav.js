@@ -6,7 +6,7 @@ export default function HocWithNav(WrappedComponent) {
   return class extends React.Component {
     render() {
       return (
-        <View style={styles.container}>
+        <View key={Math.floor(Math.random() * 100)} style={styles.container}>
           <WrappedComponent
             height="93%"
             key="wrappedComponent"

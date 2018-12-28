@@ -6,21 +6,36 @@ import {
   TextInput,
   Image,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  KeyboardAvoidingView
 } from "react-native"
 import { connect } from "react-redux"
+
 import * as actions from "../../store/actions"
 class EmailSignUp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      emailText: ""
+    }
+  }
+  // shouldComponentUpdate = () => {
+  //   return false
+  // }
   render() {
     return [
-      <Text key={Math.random()} style={styles.header}>
-        Email sign up
-      </Text>,
-      <View key={Math.random()} style={styles.formContainer}>
+      <Text style={styles.header}>Email sign up</Text>,
+      <View style={styles.formContainer}>
         <TextInput
           placeholder="email"
           selectionColor="#dddcd5"
           style={styles.input}
+          onChangeText={emailText => this.setState({ emailText })}
+          value={this.state.emailText}
+          // onChangeText={emailText => {
+          //   this.props.signUpEmail({ signUpEmail: emailText })
+          // }}
+          // value={this.props.email}
         />
         <TextInput
           placeholder="password"
@@ -46,9 +61,11 @@ class EmailSignUp extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  state
-})
+const mapStateToProps = state => {
+  return {
+    email: state.signUp.signUpEmail
+  }
+}
 
 export default connect(
   mapStateToProps,

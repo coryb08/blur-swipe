@@ -1,7 +1,7 @@
 const defaultState = { render: false }
-export default function reducer(state = defaultState, action) {
+export default function(state = defaultState, action) {
   switch (action.type) {
-    case 'CASE_ONE':
+    case "CASE_ONE":
       return {
         ...state
       }
