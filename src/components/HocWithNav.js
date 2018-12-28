@@ -7,12 +7,12 @@ export default function HocWithNav(WrappedComponent) {
     render() {
       return (
         <View style={styles.container}>
+
           <WrappedComponent
             height="93%"
             key="wrappedComponent"
             {...this.props}
           />
-
           <Nav height="7%" />
         </View>
       )

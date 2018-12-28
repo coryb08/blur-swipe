@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -7,53 +7,86 @@ import {
   Image,
   Button,
   TouchableOpacity
-} from "react-native"
-import { connect } from "react-redux"
-import * as actions from "../../store/actions"
+} from "react-native";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
 class EmailSignUp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      emailText: "",
+      passwordText: "",
+      passwordConfirmText: ""
+    };
+  }
   render() {
     return [
-      <Text key={Math.random()} style={styles.header}>
-        Email sign up
-      </Text>,
-      <View key={Math.random()} style={styles.formContainer}>
+      <Text style={styles.header}>Email sign up</Text>,
+      <View style={styles.formContainer}>
         <TextInput
           placeholder="email"
           selectionColor="#dddcd5"
           style={styles.input}
+          onChangeText={emailText => this.setState({ emailText })}
+          value={this.state.emailText}
+          returnKeyType="next"
+          blurOnSubmit={false}
+          onSubmitEditing={() => {
+            this.secondTextInput.focus();
+          }}
         />
         <TextInput
           placeholder="password"
           selectionColor="#dddcd5"
           style={styles.input}
           secureTextEntry={true}
+          blurOnSubmit={false}
+          ref={input => {
+            this.secondTextInput = input;
+          }}
+          onChangeText={passwordText => this.setState({ passwordText })}
+          value={this.state.passwordText}
+          onSubmitEditing={() => {
+            this.thirdTextInput.focus();
+          }}
+          returnKeyType="next"
         />
         <TextInput
           placeholder="confirm password"
           selectionColor="#dddcd5"
           style={styles.input}
           secureTextEntry={true}
+          onChangeText={passwordConfirmText =>
+            this.setState({ passwordConfirmText })
+          }
+          value={this.state.passwordConfirmText}
+          ref={input => {
+            this.thirdTextInput = input;
+          }}
+          onSubmitEditing={() => this.props.EmailSignUpRunner(this.state)}
+          returnKeyType="go"
         />
       </View>,
       <TouchableOpacity
         key={Math.random()}
         onPress={this.props.EmailSignUpRunner}
-        style={styles.nextContainer}>
+        style={styles.nextContainer}
+      >
         <Text style={styles.signupText}>NEXT</Text>
         <Text style={styles.signupText2}> ></Text>
       </TouchableOpacity>
-    ]
+    ];
   }
 }
 
 const mapStateToProps = state => ({
   state
-})
+});
 
 export default connect(
   mapStateToProps,
   actions
-)(EmailSignUp)
+)(EmailSignUp);
 
 const styles = StyleSheet.create({
   header: {
@@ -114,4 +147,4 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     position: "absolute"
   }
-})
+});
