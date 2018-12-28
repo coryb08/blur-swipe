@@ -14,12 +14,19 @@ export const EmailSignUpRunner = inputs => {
       await axios
         .post(`${SERVER_URL}users`, params, { responseType: "json" })
         .catch(err => console.log("error", err))
-        .then(res =>
-          console.log("res", typeof JSON.parse(res.request._response))
-        )
-
-      Actions.ProfileOptions()
+        .then(res => {
+          let firebaseRes = JSON.parse(res.request._response)
+          if (typeof firebaseRes === "string") {
+            Alert.alert("", firebaseRes, [{ text: "OK", onPress: () => {} }], {
+              cancelable: false
+            })
+          } else {
+            dispatch(actions.setCurrentUser(firebaseRes))
+            Actions.ProfileOptions()
+          }
+        })
     } else {
+      return
     }
   }
 }
