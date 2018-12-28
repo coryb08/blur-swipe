@@ -1,10 +1,11 @@
+import { FETCH_USERS } from "../../types.js";
 export default function(state = defaultState, action) {
   switch (action.type) {
-    case "fetch_users":
-      console.log("hello")
-      return state
+    case FETCH_USERS:
+      console.log("hello");
+      return state;
     default:
-      return state
+      return state;
   }
 }
 
@@ -549,4 +550,4 @@ const defaultState = [
     },
     nat: "US"
   }
-]
+];

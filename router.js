@@ -1,33 +1,33 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   Actions,
   Router,
   Scene,
   ActionConst,
   Stack
-} from "react-native-router-flux"
-import * as actions from "./src/store/actions"
-import SignInUp from "./src/components/SignInUp"
-import Landing from "./src/components/Landing"
-import EmailSignUp from "./src/components/signUp/EmailSignUp"
-import ProfileSetup from "./src/components/signUp/ProfileSetup"
-import FacebookSignUp from "./src/components/signUp/FacebookSignUp"
-import UserFeed from "./src/components/feed/UserFeed"
+} from "react-native-router-flux";
+import * as actions from "./src/store/actions";
+import SignInUp from "./src/components/SignInUp";
+import Landing from "./src/components/Landing";
+import EmailSignUp from "./src/components/signUp/EmailSignUp";
+import ProfileSetup from "./src/components/signUp/ProfileSetup";
+import FacebookSignUp from "./src/components/signUp/FacebookSignUp";
+import UserFeed from "./src/components/feed/UserFeed";
 
-import { Platform } from "react-native"
-import HocWithoutNav from "./src/components/HocWithoutNav"
-import HocWithNav from "./src/components/HocWithNav"
+import { Platform } from "react-native";
+import HocWithoutNav from "./src/components/HocWithoutNav";
+import HocWithNav from "./src/components/HocWithNav";
 
 // import WithoutHeadingHOC from "master_a_million/src/hocs/WithoutHeadingHOC"
-const reset = { type: "reset" }
+const reset = { type: "reset" };
 
 class AppRouter extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
-  componentDidMount = () => {}
+  componentDidMount = () => {};
 
   render() {
     return (
@@ -58,7 +58,7 @@ class AppRouter extends Component {
           <Scene
             key="ProfileOptions"
             previous={() => Actions.EmailSignUp()}
-            component={HocWithoutNav(ProfileSetup)}
+            component={HocWithNav(ProfileSetup)}
           />
           <Scene
             key="UserFeed"
@@ -67,19 +67,19 @@ class AppRouter extends Component {
           />
         </Stack>
       </Router>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ({
   isConnectedStore: state.events.isConnected
-})
+});
 
 const ConnectedRouter = connect(
   mapStateToProps,
   actions
-)(AppRouter)
+)(AppRouter);
 
 export default {
   ConnectedRouter: ConnectedRouter
-}
+};

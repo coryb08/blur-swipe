@@ -1,9 +1,10 @@
-let defaultState = {}
-export default function(state = defaultState, action) {
+import { SET_CURRENT_USER } from "../../types.js";
+let defaultState = {};
+export default function userReducer(state = defaultState, action) {
   switch (action.type) {
-    case "set_current_user":
-      return action.payload
+    case SET_CURRENT_USER:
+      return action.payload;
     default:
-      return state
+      return state;
   }
 }
