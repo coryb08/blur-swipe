@@ -5,11 +5,13 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
+    "postinstall": "node ./scripts/stfu.js",
     "test": "NODE_ENV=test jest --no-cache"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "expo": "^31.0.2",
+    "postinstall": "^0.4.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",

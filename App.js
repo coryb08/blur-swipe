@@ -37,8 +37,11 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { loading: true };
+    console.disableYellowBox = true;
+    console.log = function() {};
   }
   async componentWillMount() {
+    console.log("hello");
     console.disableYellowBox = true;
     StatusBar.setHidden(true);
     await Font.loadAsync({

@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -7,74 +7,139 @@ import {
   Image,
   Button,
   TouchableOpacity
-} from "react-native"
-import fb from "../../assets/Good-Stuff-No-Nonsense-Social-Icons/PNG/128x128px/facebook.png"
-import email from "../../assets/Good-Stuff-No-Nonsense-Social-Icons/PNG/128x128px/envelope.png"
+} from "react-native";
+import fb from "../../assets/Good-Stuff-No-Nonsense-Social-Icons/PNG/128x128px/facebook.png";
+import email from "../../assets/Good-Stuff-No-Nonsense-Social-Icons/PNG/128x128px/envelope.png";
 
-import { connect } from "react-redux"
-import * as actions from "../store/actions"
-import { Font, AppLoading } from "expo"
-import { Actions } from "react-native-router-flux"
+import { connect } from "react-redux";
+import * as actions from "../store/actions";
+import { Font, AppLoading } from "expo";
+import { Actions } from "react-native-router-flux";
 
 class SignInUp extends React.Component {
+  fbLogin = async () => {
+    try {
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions
+      } = await Expo.Facebook.logInWithReadPermissionsAsync("603740950082469", {
+        permissions: ["public_profile"]
+      });
+      if (type === "success") {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(
+          `https://graph.facebook.com/me?access_token=${token}`
+        );
+        console.log("response", response);
+        Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
+      } else {
+        console.log("hello");
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
+  };
   render() {
     return [
-      <Text key={Math.random()} style={styles.header}>
+      <Text
+        key={Math.floor(Math.random() * 100).toString()}
+        style={styles.header}
+      >
         Have an account?
       </Text>,
-      <View key={Math.random()} style={styles.signInContainer}>
+      <View
+        key={Math.floor(Math.random() * 100).toString()}
+        style={styles.signInContainer}
+      >
         <TextInput
+          key={Math.floor(Math.random() * 100).toString()}
           selectionColor="#dddcd5"
           placeholder="username"
           style={styles.usernamePassword}
         />
         <TextInput
+          key={Math.floor(Math.random() * 100).toString()}
           selectionColor="#dddcd5"
           placeholder="password"
           secureTextEntry={true}
           style={styles.usernamePassword}
         />
         <TouchableOpacity
+          key={Math.floor(Math.random() * 100).toString()}
           onPress={Actions.UserFeed}
-          style={styles.signinButton}>
-          <Text style={styles.signinText}>Sign In</Text>
+          style={styles.signinButton}
+        >
+          <Text
+            key={Math.floor(Math.random() * 100).toString()}
+            style={styles.signinText}
+          >
+            Sign In
+          </Text>
         </TouchableOpacity>
       </View>,
-      <View key={Math.random()} style={styles.signUpContainer}>
+      <View
+        key={Math.floor(Math.random() * 100).toString()}
+        key={Math.random()}
+        style={styles.signUpContainer}
+      >
         <TouchableOpacity
+          key={Math.floor(Math.random() * 100).toString()}
           style={{
             flexDirection: "row",
             alignItems: "center"
           }}
-          onPress={() => Actions.FacebookSignUp()}>
-          <Image style={styles.signupImg} source={fb} />
-          <Text style={[styles.signupText]}>sign up with facebook</Text>
+          onPress={this.fbLogin}
+        >
+          <Image
+            key={Math.floor(Math.random() * 100).toString()}
+            style={styles.signupImg}
+            source={fb}
+          />
+          <Text
+            key={Math.floor(Math.random() * 100).toString()}
+            style={[styles.signupText]}
+          >
+            sign up with facebook
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
+          key={Math.floor(Math.random() * 100).toString()}
           style={{
             flexDirection: "row",
             alignItems: "center",
             marginTop: 30
           }}
-          onPress={() => Actions.EmailSignUp()}>
-          <Image style={styles.signupImg} source={email} />
-          <Text style={[styles.signupText, { marginLeft: 10 }]}>
+          onPress={() => Actions.EmailSignUp()}
+        >
+          <Image
+            key={Math.floor(Math.random() * 100).toString()}
+            style={styles.signupImg}
+            source={email}
+          />
+          <Text
+            key={Math.floor(Math.random() * 100).toString()}
+            style={[styles.signupText, { marginLeft: 10 }]}
+          >
             sign up with email
           </Text>
         </TouchableOpacity>
       </View>
-    ]
+    ];
   }
 }
 
 const mapStateToProps = state => ({
   state
-})
+});
 
 export default connect(
   mapStateToProps,
   actions
-)(SignInUp)
+)(SignInUp);
 
 const styles = StyleSheet.create({
   boldText: {
@@ -154,4 +219,4 @@ const styles = StyleSheet.create({
 
     letterSpacing: 1
   }
-})
+});

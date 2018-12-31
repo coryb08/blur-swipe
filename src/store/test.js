@@ -8,6 +8,9 @@ describe("actions", () => {
       type: "hello",
       text
     };
-    expect(actions.setCurrentUser(text)).toEqual(expectedAction);
+    expect(actions.setCurrentUser(true)).toEqual({
+      type: "set_current_user",
+      payload: true
+    });
   });
 });
